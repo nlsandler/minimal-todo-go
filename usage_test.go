@@ -34,5 +34,5 @@ func TestUsage(t *testing.T) {
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())
 	}
-	t.Logf("%+v\n", task.Tags)
+	t.Logf("%+v\n", task.Deadline)
 }
