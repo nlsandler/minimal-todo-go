@@ -1,0 +1,234 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+package minimaltodo
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"net/http"
+	"net/url"
+	"time"
+
+	"github.com/stainless-sdks/minimal-todo-go/internal/apijson"
+	"github.com/stainless-sdks/minimal-todo-go/internal/apiquery"
+	"github.com/stainless-sdks/minimal-todo-go/internal/requestconfig"
+	"github.com/stainless-sdks/minimal-todo-go/option"
+	"github.com/stainless-sdks/minimal-todo-go/packages/param"
+	"github.com/stainless-sdks/minimal-todo-go/packages/resp"
+)
+
+// TaskService contains methods and other services that help with interacting with
+// the minimal-todo API.
+//
+// Note, unlike clients, this service does not read variables from the environment
+// automatically. You should not instantiate this service directly, and instead use
+// the [NewTaskService] method instead.
+type TaskService struct {
+	Options []option.RequestOption
+	Tags    TaskTagService
+}
+
+// NewTaskService generates a new service that applies the given options to each
+// request. These options are applied after the parent client's options (if there
+// is one), and before any request-specific options.
+func NewTaskService(opts ...option.RequestOption) (r TaskService) {
+	r = TaskService{}
+	r.Options = opts
+	r.Tags = NewTaskTagService(opts...)
+	return
+}
+
+func (r *TaskService) New(ctx context.Context, body TaskNewParams, opts ...option.RequestOption) (res *Task, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "v1/tasks"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	return
+}
+
+func (r *TaskService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *Task, err error) {
+	opts = append(r.Options[:], opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/tasks/%s", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
+	return
+}
+
+func (r *TaskService) Update(ctx context.Context, id string, body TaskUpdateParams, opts ...option.RequestOption) (res *Task, err error) {
+	opts = append(r.Options[:], opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/tasks/%s", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
+	return
+}
+
+func (r *TaskService) List(ctx context.Context, query TaskListParams, opts ...option.RequestOption) (res *TaskListResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	path := "v1/tasks"
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
+	return
+}
+
+func (r *TaskService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *TaskDeleteResponse, err error) {
+	opts = append(r.Options[:], opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/tasks/%s", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
+	return
+}
+
+func (r *TaskService) Complete(ctx context.Context, id string, opts ...option.RequestOption) (res *Task, err error) {
+	opts = append(r.Options[:], opts...)
+	if id == "" {
+		err = errors.New("missing required id parameter")
+		return
+	}
+	path := fmt.Sprintf("v1/tasks/%s/complete", id)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	return
+}
+
+type Task struct {
+	Tags     []TaskTag `json:"tags,required"`
+	Deadline time.Time `json:"deadline,nullable" format:"date"`
+	Name     string    `json:"name"`
+	// Metadata for the response, check the presence of optional fields with the
+	// [resp.Field.IsPresent] method.
+	JSON struct {
+		Tags        resp.Field
+		Deadline    resp.Field
+		Name        resp.Field
+		ExtraFields map[string]resp.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r Task) RawJSON() string { return r.JSON.raw }
+func (r *Task) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type TaskTag struct {
+	ID        string `json:"id,required"`
+	CreatedAt string `json:"created_at,required"`
+	Label     string `json:"label,required"`
+	OwnerID   string `json:"owner_id,required"`
+	UpdatedAt string `json:"updated_at,required"`
+	// Metadata for the response, check the presence of optional fields with the
+	// [resp.Field.IsPresent] method.
+	JSON struct {
+		ID          resp.Field
+		CreatedAt   resp.Field
+		Label       resp.Field
+		OwnerID     resp.Field
+		UpdatedAt   resp.Field
+		ExtraFields map[string]resp.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r TaskTag) RawJSON() string { return r.JSON.raw }
+func (r *TaskTag) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type TaskListResponse struct {
+	Data       []Task `json:"data,required"`
+	HasMore    bool   `json:"has_more,required"`
+	NextCursor string `json:"next_cursor,required"`
+	// Metadata for the response, check the presence of optional fields with the
+	// [resp.Field.IsPresent] method.
+	JSON struct {
+		Data        resp.Field
+		HasMore     resp.Field
+		NextCursor  resp.Field
+		ExtraFields map[string]resp.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r TaskListResponse) RawJSON() string { return r.JSON.raw }
+func (r *TaskListResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type TaskDeleteResponse struct {
+	ID      string `json:"id,required"`
+	Deleted bool   `json:"deleted,required"`
+	// Metadata for the response, check the presence of optional fields with the
+	// [resp.Field.IsPresent] method.
+	JSON struct {
+		ID          resp.Field
+		Deleted     resp.Field
+		ExtraFields map[string]resp.Field
+		raw         string
+	} `json:"-"`
+}
+
+// Returns the unmodified JSON received from the API
+func (r TaskDeleteResponse) RawJSON() string { return r.JSON.raw }
+func (r *TaskDeleteResponse) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+type TaskNewParams struct {
+	Deadline param.Opt[time.Time] `json:"deadline,omitzero,required" format:"date"`
+	Name     string               `json:"name,required"`
+	paramObj
+}
+
+// IsPresent returns true if the field's value is not omitted and not the JSON
+// "null". To check if this field is omitted, use [param.IsOmitted].
+func (f TaskNewParams) IsPresent() bool { return !param.IsOmitted(f) && !f.IsNull() }
+
+func (r TaskNewParams) MarshalJSON() (data []byte, err error) {
+	type shadow TaskNewParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+
+type TaskUpdateParams struct {
+	CompletedAt param.Opt[string] `json:"completed_at,omitzero"`
+	Description param.Opt[string] `json:"description,omitzero"`
+	Title       param.Opt[string] `json:"title,omitzero"`
+	TagIDs      []string          `json:"tag_ids,omitzero"`
+	paramObj
+}
+
+// IsPresent returns true if the field's value is not omitted and not the JSON
+// "null". To check if this field is omitted, use [param.IsOmitted].
+func (f TaskUpdateParams) IsPresent() bool { return !param.IsOmitted(f) && !f.IsNull() }
+
+func (r TaskUpdateParams) MarshalJSON() (data []byte, err error) {
+	type shadow TaskUpdateParams
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+
+type TaskListParams struct {
+	Limit  param.Opt[float64] `query:"limit,omitzero" json:"-"`
+	Cursor param.Opt[string]  `query:"cursor,omitzero" json:"-"`
+	paramObj
+}
+
+// IsPresent returns true if the field's value is not omitted and not the JSON
+// "null". To check if this field is omitted, use [param.IsOmitted].
+func (f TaskListParams) IsPresent() bool { return !param.IsOmitted(f) && !f.IsNull() }
+
+// URLQuery serializes [TaskListParams]'s query parameters as `url.Values`.
+func (r TaskListParams) URLQuery() (v url.Values, err error) {
+	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
+		ArrayFormat:  apiquery.ArrayQueryFormatComma,
+		NestedFormat: apiquery.NestedQueryFormatBrackets,
+	})
+}
