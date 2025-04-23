@@ -98,15 +98,15 @@ func (r *TaskService) Complete(ctx context.Context, id string, opts ...option.Re
 }
 
 type Task struct {
+	Deadline time.Time `json:"deadline,required" format:"date"`
+	Name     string    `json:"name,required"`
 	Tags     []TaskTag `json:"tags,required"`
-	Deadline time.Time `json:"deadline,nullable" format:"date"`
-	Name     string    `json:"name"`
 	// Metadata for the response, check the presence of optional fields with the
 	// [resp.Field.IsPresent] method.
 	JSON struct {
-		Tags        resp.Field
 		Deadline    resp.Field
 		Name        resp.Field
+		Tags        resp.Field
 		ExtraFields map[string]resp.Field
 		raw         string
 	} `json:"-"`
@@ -120,10 +120,10 @@ func (r *Task) UnmarshalJSON(data []byte) error {
 
 type TaskTag struct {
 	ID        string `json:"id,required"`
-	CreatedAt string `json:"created_at,required"`
-	Label     string `json:"label,required"`
-	OwnerID   string `json:"owner_id,required"`
-	UpdatedAt string `json:"updated_at,required"`
+	CreatedAt string `json:"created_at"`
+	Label     string `json:"label"`
+	OwnerID   string `json:"owner_id"`
+	UpdatedAt string `json:"updated_at"`
 	// Metadata for the response, check the presence of optional fields with the
 	// [resp.Field.IsPresent] method.
 	JSON struct {
