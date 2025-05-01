@@ -10,6 +10,7 @@ import (
 
 	"github.com/stainless-sdks/minimal-todo-go/internal/requestconfig"
 	"github.com/stainless-sdks/minimal-todo-go/option"
+	"github.com/stainless-sdks/minimal-todo-go/packages/param"
 )
 
 // TaskTagService contains methods and other services that help with interacting
@@ -39,9 +40,9 @@ func (r *TaskTagService) List(ctx context.Context, todoID int64, opts ...option.
 	return
 }
 
-func (r *TaskTagService) Add(ctx context.Context, todoID string, tagID string, opts ...option.RequestOption) (res *Task, err error) {
+func (r *TaskTagService) Add(ctx context.Context, tagID string, body TaskTagAddParams, opts ...option.RequestOption) (res *Task, err error) {
 	opts = append(r.Options[:], opts...)
-	if todoID == "" {
+	if body.TodoID == "" {
 		err = errors.New("missing required todoId parameter")
 		return
 	}
@@ -49,14 +50,14 @@ func (r *TaskTagService) Add(ctx context.Context, todoID string, tagID string, o
 		err = errors.New("missing required tagId parameter")
 		return
 	}
-	path := fmt.Sprintf("v1/tasks/%s/tags/%s", todoID, tagID)
+	path := fmt.Sprintf("v1/tasks/%s/tags/%s", body.TodoID, tagID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
 }
 
-func (r *TaskTagService) Remove(ctx context.Context, todoID string, tagID string, opts ...option.RequestOption) (res *Task, err error) {
+func (r *TaskTagService) Remove(ctx context.Context, tagID string, body TaskTagRemoveParams, opts ...option.RequestOption) (res *Task, err error) {
 	opts = append(r.Options[:], opts...)
-	if todoID == "" {
+	if body.TodoID == "" {
 		err = errors.New("missing required todoId parameter")
 		return
 	}
@@ -64,7 +65,25 @@ func (r *TaskTagService) Remove(ctx context.Context, todoID string, tagID string
 		err = errors.New("missing required tagId parameter")
 		return
 	}
-	path := fmt.Sprintf("v1/tasks/%s/tags/%s", todoID, tagID)
+	path := fmt.Sprintf("v1/tasks/%s/tags/%s", body.TodoID, tagID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
 }
+
+type TaskTagAddParams struct {
+	TodoID string `path:"todoId,required" json:"-"`
+	paramObj
+}
+
+// IsPresent returns true if the field's value is not omitted and not the JSON
+// "null". To check if this field is omitted, use [param.IsOmitted].
+func (f TaskTagAddParams) IsPresent() bool { return !param.IsOmitted(f) && !f.IsNull() }
+
+type TaskTagRemoveParams struct {
+	TodoID string `path:"todoId,required" json:"-"`
+	paramObj
+}
+
+// IsPresent returns true if the field's value is not omitted and not the JSON
+// "null". To check if this field is omitted, use [param.IsOmitted].
+func (f TaskTagRemoveParams) IsPresent() bool { return !param.IsOmitted(f) && !f.IsNull() }
