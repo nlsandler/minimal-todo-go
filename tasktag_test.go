@@ -55,8 +55,10 @@ func TestTaskTagAdd(t *testing.T) {
 	)
 	_, err := client.Tasks.Tags.Add(
 		context.TODO(),
-		"todo_nc6bzmkmd014706rfda898to",
 		"tag_tz4a98xxat96iws9zmbrgj3a",
+		minimaltodo.TaskTagAddParams{
+			TodoID: "todo_nc6bzmkmd014706rfda898to",
+		},
 	)
 	if err != nil {
 		var apierr *minimaltodo.Error
@@ -84,8 +86,10 @@ func TestTaskTagRemove(t *testing.T) {
 	)
 	_, err := client.Tasks.Tags.Remove(
 		context.TODO(),
-		"todo_nc6bzmkmd014706rfda898to",
 		"tag_tz4a98xxat96iws9zmbrgj3a",
+		minimaltodo.TaskTagRemoveParams{
+			TodoID: "todo_nc6bzmkmd014706rfda898to",
+		},
 	)
 	if err != nil {
 		var apierr *minimaltodo.Error
