@@ -6,7 +6,6 @@ import (
 	"context"
 	"os"
 	"testing"
-	"time"
 
 	"github.com/stainless-sdks/minimal-todo-go"
 	"github.com/stainless-sdks/minimal-todo-go/internal/testutil"
@@ -27,12 +26,9 @@ func TestUsage(t *testing.T) {
 		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
-	task, err := client.Tasks.New(context.TODO(), minimaltodo.TaskNewParams{
-		Deadline: minimaltodo.Time(time.Now()),
-		Name:     "Grocery shopping",
-	})
+	tag, err := client.Tags.Get(context.TODO(), "3")
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())
 	}
-	t.Logf("%+v\n", task.Deadline)
+	t.Logf("%+v\n", tag.ID)
 }
