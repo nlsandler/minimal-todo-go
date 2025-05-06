@@ -15,7 +15,7 @@ import (
 	"github.com/stainless-sdks/minimal-todo-go/internal/requestconfig"
 	"github.com/stainless-sdks/minimal-todo-go/option"
 	"github.com/stainless-sdks/minimal-todo-go/packages/param"
-	"github.com/stainless-sdks/minimal-todo-go/packages/resp"
+	"github.com/stainless-sdks/minimal-todo-go/packages/respjson"
 )
 
 // TaskService contains methods and other services that help with interacting with
@@ -101,12 +101,12 @@ type Task struct {
 	Deadline time.Time `json:"deadline,required" format:"date"`
 	Name     string    `json:"name,required"`
 	Tags     []TaskTag `json:"tags,required"`
-	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		Deadline    resp.Field
-		Name        resp.Field
-		Tags        resp.Field
-		ExtraFields map[string]resp.Field
+		Deadline    respjson.Field
+		Name        respjson.Field
+		Tags        respjson.Field
+		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
 }
@@ -123,14 +123,14 @@ type TaskTag struct {
 	Label     string `json:"label"`
 	OwnerID   string `json:"owner_id"`
 	UpdatedAt string `json:"updated_at"`
-	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID          resp.Field
-		CreatedAt   resp.Field
-		Label       resp.Field
-		OwnerID     resp.Field
-		UpdatedAt   resp.Field
-		ExtraFields map[string]resp.Field
+		ID          respjson.Field
+		CreatedAt   respjson.Field
+		Label       respjson.Field
+		OwnerID     respjson.Field
+		UpdatedAt   respjson.Field
+		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
 }
@@ -145,12 +145,12 @@ type TaskListResponse struct {
 	Data       []Task `json:"data,required"`
 	HasMore    bool   `json:"has_more,required"`
 	NextCursor string `json:"next_cursor,required"`
-	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		Data        resp.Field
-		HasMore     resp.Field
-		NextCursor  resp.Field
-		ExtraFields map[string]resp.Field
+		Data        respjson.Field
+		HasMore     respjson.Field
+		NextCursor  respjson.Field
+		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
 }
@@ -164,11 +164,11 @@ func (r *TaskListResponse) UnmarshalJSON(data []byte) error {
 type TaskDeleteResponse struct {
 	ID      string `json:"id,required"`
 	Deleted bool   `json:"deleted,required"`
-	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID          resp.Field
-		Deleted     resp.Field
-		ExtraFields map[string]resp.Field
+		ID          respjson.Field
+		Deleted     respjson.Field
+		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
 }
