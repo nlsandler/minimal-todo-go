@@ -14,7 +14,7 @@ import (
 	"github.com/stainless-sdks/minimal-todo-go/internal/requestconfig"
 	"github.com/stainless-sdks/minimal-todo-go/option"
 	"github.com/stainless-sdks/minimal-todo-go/packages/param"
-	"github.com/stainless-sdks/minimal-todo-go/packages/resp"
+	"github.com/stainless-sdks/minimal-todo-go/packages/respjson"
 )
 
 // TagService contains methods and other services that help with interacting with
@@ -78,14 +78,14 @@ type Tag struct {
 	Label     string `json:"label,required"`
 	OwnerID   string `json:"owner_id,required"`
 	UpdatedAt string `json:"updated_at,required"`
-	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID          resp.Field
-		CreatedAt   resp.Field
-		Label       resp.Field
-		OwnerID     resp.Field
-		UpdatedAt   resp.Field
-		ExtraFields map[string]resp.Field
+		ID          respjson.Field
+		CreatedAt   respjson.Field
+		Label       respjson.Field
+		OwnerID     respjson.Field
+		UpdatedAt   respjson.Field
+		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
 }
@@ -100,12 +100,12 @@ type TagListResponse struct {
 	Data       []Tag  `json:"data,required"`
 	HasMore    bool   `json:"has_more,required"`
 	NextCursor string `json:"next_cursor,required"`
-	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		Data        resp.Field
-		HasMore     resp.Field
-		NextCursor  resp.Field
-		ExtraFields map[string]resp.Field
+		Data        respjson.Field
+		HasMore     respjson.Field
+		NextCursor  respjson.Field
+		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
 }
@@ -119,11 +119,11 @@ func (r *TagListResponse) UnmarshalJSON(data []byte) error {
 type TagDeleteResponse struct {
 	ID      string `json:"id,required"`
 	Deleted bool   `json:"deleted,required"`
-	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
+	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
-		ID          resp.Field
-		Deleted     resp.Field
-		ExtraFields map[string]resp.Field
+		ID          respjson.Field
+		Deleted     respjson.Field
+		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
 }
