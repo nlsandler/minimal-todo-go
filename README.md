@@ -35,7 +35,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"time"
 
 	"github.com/stainless-sdks/minimal-todo-go"
 	"github.com/stainless-sdks/minimal-todo-go/option"
@@ -47,14 +46,11 @@ func main() {
 		option.WithPassword("My Password"), // defaults to os.LookupEnv("MINIMAL_TODO_PASSWORD")
 		option.WithAPIKey("My API Key"),    // defaults to os.LookupEnv("MINIMAL_TODO_API_KEY")
 	)
-	task, err := client.Tasks.New(context.TODO(), minimaltodo.TaskNewParams{
-		Deadline: minimaltodo.Time(time.Now()),
-		Name:     "Grocery shopping",
-	})
+	tag, err := client.Tags.Get(context.TODO(), "3")
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", task.Deadline)
+	fmt.Printf("%+v\n", tag.ID)
 }
 
 ```
