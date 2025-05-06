@@ -10,7 +10,6 @@ import (
 
 	"github.com/stainless-sdks/minimal-todo-go/internal/requestconfig"
 	"github.com/stainless-sdks/minimal-todo-go/option"
-	"github.com/stainless-sdks/minimal-todo-go/packages/param"
 )
 
 // TaskTagService contains methods and other services that help with interacting
@@ -75,15 +74,7 @@ type TaskTagAddParams struct {
 	paramObj
 }
 
-// IsPresent returns true if the field's value is not omitted and not the JSON
-// "null". To check if this field is omitted, use [param.IsOmitted].
-func (f TaskTagAddParams) IsPresent() bool { return !param.IsOmitted(f) && !f.IsNull() }
-
 type TaskTagRemoveParams struct {
 	TodoID string `path:"todoId,required" json:"-"`
 	paramObj
 }
-
-// IsPresent returns true if the field's value is not omitted and not the JSON
-// "null". To check if this field is omitted, use [param.IsOmitted].
-func (f TaskTagRemoveParams) IsPresent() bool { return !param.IsOmitted(f) && !f.IsNull() }
