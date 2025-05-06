@@ -78,8 +78,7 @@ type Tag struct {
 	Label     string `json:"label,required"`
 	OwnerID   string `json:"owner_id,required"`
 	UpdatedAt string `json:"updated_at,required"`
-	// Metadata for the response, check the presence of optional fields with the
-	// [resp.Field.IsPresent] method.
+	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
 	JSON struct {
 		ID          resp.Field
 		CreatedAt   resp.Field
@@ -101,8 +100,7 @@ type TagListResponse struct {
 	Data       []Tag  `json:"data,required"`
 	HasMore    bool   `json:"has_more,required"`
 	NextCursor string `json:"next_cursor,required"`
-	// Metadata for the response, check the presence of optional fields with the
-	// [resp.Field.IsPresent] method.
+	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
 	JSON struct {
 		Data        resp.Field
 		HasMore     resp.Field
@@ -121,8 +119,7 @@ func (r *TagListResponse) UnmarshalJSON(data []byte) error {
 type TagDeleteResponse struct {
 	ID      string `json:"id,required"`
 	Deleted bool   `json:"deleted,required"`
-	// Metadata for the response, check the presence of optional fields with the
-	// [resp.Field.IsPresent] method.
+	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
 	JSON struct {
 		ID          resp.Field
 		Deleted     resp.Field
@@ -143,10 +140,6 @@ type TagNewParams struct {
 	paramObj
 }
 
-// IsPresent returns true if the field's value is not omitted and not the JSON
-// "null". To check if this field is omitted, use [param.IsOmitted].
-func (f TagNewParams) IsPresent() bool { return !param.IsOmitted(f) && !f.IsNull() }
-
 func (r TagNewParams) MarshalJSON() (data []byte, err error) {
 	type shadow TagNewParams
 	return param.MarshalObject(r, (*shadow)(&r))
@@ -157,10 +150,6 @@ type TagListParams struct {
 	Cursor param.Opt[string]  `query:"cursor,omitzero" json:"-"`
 	paramObj
 }
-
-// IsPresent returns true if the field's value is not omitted and not the JSON
-// "null". To check if this field is omitted, use [param.IsOmitted].
-func (f TagListParams) IsPresent() bool { return !param.IsOmitted(f) && !f.IsNull() }
 
 // URLQuery serializes [TagListParams]'s query parameters as `url.Values`.
 func (r TagListParams) URLQuery() (v url.Values, err error) {

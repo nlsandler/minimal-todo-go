@@ -101,8 +101,7 @@ type Task struct {
 	Deadline time.Time `json:"deadline,required" format:"date"`
 	Name     string    `json:"name,required"`
 	Tags     []TaskTag `json:"tags,required"`
-	// Metadata for the response, check the presence of optional fields with the
-	// [resp.Field.IsPresent] method.
+	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
 	JSON struct {
 		Deadline    resp.Field
 		Name        resp.Field
@@ -124,8 +123,7 @@ type TaskTag struct {
 	Label     string `json:"label"`
 	OwnerID   string `json:"owner_id"`
 	UpdatedAt string `json:"updated_at"`
-	// Metadata for the response, check the presence of optional fields with the
-	// [resp.Field.IsPresent] method.
+	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
 	JSON struct {
 		ID          resp.Field
 		CreatedAt   resp.Field
@@ -147,8 +145,7 @@ type TaskListResponse struct {
 	Data       []Task `json:"data,required"`
 	HasMore    bool   `json:"has_more,required"`
 	NextCursor string `json:"next_cursor,required"`
-	// Metadata for the response, check the presence of optional fields with the
-	// [resp.Field.IsPresent] method.
+	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
 	JSON struct {
 		Data        resp.Field
 		HasMore     resp.Field
@@ -167,8 +164,7 @@ func (r *TaskListResponse) UnmarshalJSON(data []byte) error {
 type TaskDeleteResponse struct {
 	ID      string `json:"id,required"`
 	Deleted bool   `json:"deleted,required"`
-	// Metadata for the response, check the presence of optional fields with the
-	// [resp.Field.IsPresent] method.
+	// JSON contains metadata for fields, check presence with [resp.Field.Valid].
 	JSON struct {
 		ID          resp.Field
 		Deleted     resp.Field
@@ -189,10 +185,6 @@ type TaskNewParams struct {
 	paramObj
 }
 
-// IsPresent returns true if the field's value is not omitted and not the JSON
-// "null". To check if this field is omitted, use [param.IsOmitted].
-func (f TaskNewParams) IsPresent() bool { return !param.IsOmitted(f) && !f.IsNull() }
-
 func (r TaskNewParams) MarshalJSON() (data []byte, err error) {
 	type shadow TaskNewParams
 	return param.MarshalObject(r, (*shadow)(&r))
@@ -206,10 +198,6 @@ type TaskUpdateParams struct {
 	paramObj
 }
 
-// IsPresent returns true if the field's value is not omitted and not the JSON
-// "null". To check if this field is omitted, use [param.IsOmitted].
-func (f TaskUpdateParams) IsPresent() bool { return !param.IsOmitted(f) && !f.IsNull() }
-
 func (r TaskUpdateParams) MarshalJSON() (data []byte, err error) {
 	type shadow TaskUpdateParams
 	return param.MarshalObject(r, (*shadow)(&r))
@@ -220,10 +208,6 @@ type TaskListParams struct {
 	Cursor param.Opt[string]  `query:"cursor,omitzero" json:"-"`
 	paramObj
 }
-
-// IsPresent returns true if the field's value is not omitted and not the JSON
-// "null". To check if this field is omitted, use [param.IsOmitted].
-func (f TaskListParams) IsPresent() bool { return !param.IsOmitted(f) && !f.IsNull() }
 
 // URLQuery serializes [TaskListParams]'s query parameters as `url.Values`.
 func (r TaskListParams) URLQuery() (v url.Values, err error) {

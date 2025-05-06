@@ -1,4 +1,4 @@
-package param
+package paramutil
 
 import (
 	"github.com/stainless-sdks/minimal-todo-go/internal/encoding/json/sentinel"
