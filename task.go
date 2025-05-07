@@ -189,6 +189,9 @@ func (r TaskNewParams) MarshalJSON() (data []byte, err error) {
 	type shadow TaskNewParams
 	return param.MarshalObject(r, (*shadow)(&r))
 }
+func (r *TaskNewParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
 
 type TaskUpdateParams struct {
 	CompletedAt param.Opt[string] `json:"completed_at,omitzero"`
@@ -201,6 +204,9 @@ type TaskUpdateParams struct {
 func (r TaskUpdateParams) MarshalJSON() (data []byte, err error) {
 	type shadow TaskUpdateParams
 	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *TaskUpdateParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
 }
 
 type TaskListParams struct {
