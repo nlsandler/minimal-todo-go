@@ -144,6 +144,9 @@ func (r TagNewParams) MarshalJSON() (data []byte, err error) {
 	type shadow TagNewParams
 	return param.MarshalObject(r, (*shadow)(&r))
 }
+func (r *TagNewParams) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
 
 type TagListParams struct {
 	Limit  param.Opt[float64] `query:"limit,omitzero" json:"-"`
