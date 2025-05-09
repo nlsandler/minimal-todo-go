@@ -26,7 +26,7 @@ func TestUsage(t *testing.T) {
 		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
-	tag, err := client.Tags.Get(context.TODO(), "3")
+	tag, err := client.Tags.Get(context.TODO(), "id")
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())
 	}

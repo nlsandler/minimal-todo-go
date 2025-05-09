@@ -46,7 +46,7 @@ func main() {
 		option.WithPassword("My Password"), // defaults to os.LookupEnv("MINIMAL_TODO_PASSWORD")
 		option.WithAPIKey("My API Key"),    // defaults to os.LookupEnv("MINIMAL_TODO_API_KEY")
 	)
-	tag, err := client.Tags.Get(context.TODO(), "3")
+	tag, err := client.Tags.Get(context.TODO(), "id")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -285,7 +285,7 @@ When the API returns a non-success status code, we return an error with type
 To handle errors, we recommend that you use the `errors.As` pattern:
 
 ```go
-_, err := client.Tags.Get(context.TODO(), "3")
+_, err := client.Tags.Get(context.TODO(), "id")
 if err != nil {
 	var apierr *minimaltodo.Error
 	if errors.As(err, &apierr) {
@@ -312,7 +312,7 @@ ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
 defer cancel()
 client.Tags.Get(
 	ctx,
-	"3",
+	"id",
 	// This sets the per-retry timeout
 	option.WithRequestTimeout(20*time.Second),
 )
@@ -348,7 +348,7 @@ client := minimaltodo.NewClient(
 // Override per-request:
 client.Tags.Get(
 	context.TODO(),
-	"3",
+	"id",
 	option.WithMaxRetries(5),
 )
 ```
@@ -363,7 +363,7 @@ you need to examine response headers, status codes, or other details.
 var response *http.Response
 tag, err := client.Tags.Get(
 	context.TODO(),
-	"3",
+	"id",
 	option.WithResponseInto(&response),
 )
 if err != nil {
