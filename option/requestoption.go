@@ -263,7 +263,7 @@ func WithRequestTimeout(dur time.Duration) RequestOption {
 // environment to be the "production" environment. An environment specifies which base URL
 // to use by default.
 func WithEnvironmentProduction() RequestOption {
-	return WithBaseURL("http://localhost:3010/")
+	return requestconfig.WithDefaultBaseURL("http://localhost:3010/")
 }
 
 // WithUsername returns a RequestOption that sets the client setting "username".
