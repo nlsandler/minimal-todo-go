@@ -45,6 +45,7 @@ func main() {
 		option.WithUsername("My Username"), // defaults to os.LookupEnv("MINIMAL_TODO_USERNAME")
 		option.WithPassword("My Password"), // defaults to os.LookupEnv("MINIMAL_TODO_PASSWORD")
 		option.WithAPIKey("My API Key"),    // defaults to os.LookupEnv("MINIMAL_TODO_API_KEY")
+		option.WithEnvironmentStaging(),    // defaults to option.WithEnvironmentProduction()
 	)
 	tag, err := client.Tags.Get(context.TODO(), "id")
 	if err != nil {
