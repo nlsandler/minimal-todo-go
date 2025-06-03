@@ -266,6 +266,13 @@ func WithEnvironmentProduction() RequestOption {
 	return requestconfig.WithDefaultBaseURL("http://localhost:3010/")
 }
 
+// WithEnvironmentStaging returns a RequestOption that sets the current
+// environment to be the "staging" environment. An environment specifies which base URL
+// to use by default.
+func WithEnvironmentStaging() RequestOption {
+	return requestconfig.WithDefaultBaseURL("http://localhost:1234/")
+}
+
 // WithUsername returns a RequestOption that sets the client setting "username".
 func WithUsername(value string) RequestOption {
 	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
