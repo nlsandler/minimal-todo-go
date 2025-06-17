@@ -265,6 +265,8 @@ client.Tags.Get(context.TODO(), ...,
 )
 ```
 
+The request option `option.WithDebugLog(nil)` may be helpful while debugging.
+
 See the [full list of request options](https://pkg.go.dev/github.com/stainless-sdks/minimal-todo-go/option).
 
 ### Pagination
