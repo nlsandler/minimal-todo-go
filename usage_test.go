@@ -26,6 +26,7 @@ func TestUsage(t *testing.T) {
 		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
+	t.Skip("Prism tests are disabled")
 	tag, err := client.Tags.Get(context.TODO(), "id")
 	if err != nil {
 		t.Fatalf("err should be nil: %s", err.Error())

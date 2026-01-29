@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 
 	"github.com/stainless-sdks/minimal-todo-go/internal/apijson"
 	"github.com/stainless-sdks/minimal-todo-go/internal/apiquery"
@@ -37,14 +38,14 @@ func NewTagService(opts ...option.RequestOption) (r TagService) {
 }
 
 func (r *TagService) New(ctx context.Context, body TagNewParams, opts ...option.RequestOption) (res *Tag, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/tags"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
 func (r *TagService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *Tag, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -55,14 +56,14 @@ func (r *TagService) Get(ctx context.Context, id string, opts ...option.RequestO
 }
 
 func (r *TagService) List(ctx context.Context, query TagListParams, opts ...option.RequestOption) (res *TagListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/tags"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
 func (r *TagService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *TagDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
