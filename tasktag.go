@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"slices"
 
 	"github.com/stainless-sdks/minimal-todo-go/internal/requestconfig"
 	"github.com/stainless-sdks/minimal-todo-go/option"
@@ -32,15 +33,15 @@ func NewTaskTagService(opts ...option.RequestOption) (r TaskTagService) {
 }
 
 func (r *TaskTagService) List(ctx context.Context, todoID int64, opts ...option.RequestOption) (err error) {
-	opts = append(r.Options[:], opts...)
-	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
+	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithHeader("Accept", "*/*")}, opts...)
 	path := fmt.Sprintf("v1/tasks/%v/tags", todoID)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, nil, opts...)
 	return
 }
 
 func (r *TaskTagService) Add(ctx context.Context, tagID string, body TaskTagAddParams, opts ...option.RequestOption) (res *Task, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if body.TodoID == "" {
 		err = errors.New("missing required todoId parameter")
 		return
@@ -55,7 +56,7 @@ func (r *TaskTagService) Add(ctx context.Context, tagID string, body TaskTagAddP
 }
 
 func (r *TaskTagService) Remove(ctx context.Context, tagID string, body TaskTagRemoveParams, opts ...option.RequestOption) (res *Task, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if body.TodoID == "" {
 		err = errors.New("missing required todoId parameter")
 		return

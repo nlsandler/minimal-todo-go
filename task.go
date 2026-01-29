@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"slices"
 	"time"
 
 	"github.com/stainless-sdks/minimal-todo-go/internal/apijson"
@@ -40,14 +41,14 @@ func NewTaskService(opts ...option.RequestOption) (r TaskService) {
 }
 
 func (r *TaskService) New(ctx context.Context, body TaskNewParams, opts ...option.RequestOption) (res *Task, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/tasks"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
 func (r *TaskService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *Task, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -58,7 +59,7 @@ func (r *TaskService) Get(ctx context.Context, id string, opts ...option.Request
 }
 
 func (r *TaskService) Update(ctx context.Context, id string, body TaskUpdateParams, opts ...option.RequestOption) (res *Task, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -69,14 +70,14 @@ func (r *TaskService) Update(ctx context.Context, id string, body TaskUpdatePara
 }
 
 func (r *TaskService) List(ctx context.Context, query TaskListParams, opts ...option.RequestOption) (res *TaskListResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	path := "v1/tasks"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
 	return
 }
 
 func (r *TaskService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *TaskDeleteResponse, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
@@ -87,7 +88,7 @@ func (r *TaskService) Delete(ctx context.Context, id string, opts ...option.Requ
 }
 
 func (r *TaskService) Complete(ctx context.Context, id string, opts ...option.RequestOption) (res *Task, err error) {
-	opts = append(r.Options[:], opts...)
+	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
 		return
