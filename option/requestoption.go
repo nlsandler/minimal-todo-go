@@ -4,7 +4,6 @@ package option
 
 import (
 	"bytes"
-	"encoding/base64"
 	"fmt"
 	"io"
 	"net/http"
@@ -272,22 +271,6 @@ func WithEnvironmentProduction() RequestOption {
 // to use by default.
 func WithEnvironmentStaging() RequestOption {
 	return requestconfig.WithDefaultBaseURL("http://localhost:1234/")
-}
-
-// WithUsername returns a RequestOption that sets the client setting "username".
-func WithUsername(value string) RequestOption {
-	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
-		r.Username = value
-		return r.Apply(WithHeader("authorization", fmt.Sprintf("Basic %s", base64.StdEncoding.EncodeToString([]byte(r.Username+":"+r.Password)))))
-	})
-}
-
-// WithPassword returns a RequestOption that sets the client setting "password".
-func WithPassword(value string) RequestOption {
-	return requestconfig.RequestOptionFunc(func(r *requestconfig.RequestConfig) error {
-		r.Password = value
-		return r.Apply(WithHeader("authorization", fmt.Sprintf("Basic %s", base64.StdEncoding.EncodeToString([]byte(r.Username+":"+r.Password)))))
-	})
 }
 
 // WithAPIKey returns a RequestOption that sets the client setting "api_key".

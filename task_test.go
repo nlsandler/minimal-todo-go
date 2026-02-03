@@ -25,8 +25,6 @@ func TestTaskNew(t *testing.T) {
 	}
 	client := minimaltodo.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithUsername("My Username"),
-		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Tasks.New(context.TODO(), minimaltodo.TaskNewParams{
@@ -53,8 +51,6 @@ func TestTaskGet(t *testing.T) {
 	}
 	client := minimaltodo.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithUsername("My Username"),
-		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Tasks.Get(context.TODO(), "todo_nc6bzmkmd014706rfda898to")
@@ -78,8 +74,6 @@ func TestTaskUpdateWithOptionalParams(t *testing.T) {
 	}
 	client := minimaltodo.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithUsername("My Username"),
-		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Tasks.Update(
@@ -112,8 +106,6 @@ func TestTaskListWithOptionalParams(t *testing.T) {
 	}
 	client := minimaltodo.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithUsername("My Username"),
-		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Tasks.List(context.TODO(), minimaltodo.TaskListParams{
@@ -140,8 +132,6 @@ func TestTaskDelete(t *testing.T) {
 	}
 	client := minimaltodo.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithUsername("My Username"),
-		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Tasks.Delete(context.TODO(), "todo_nc6bzmkmd014706rfda898to")
@@ -165,8 +155,6 @@ func TestTaskComplete(t *testing.T) {
 	}
 	client := minimaltodo.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithUsername("My Username"),
-		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Tasks.Complete(context.TODO(), "todo_nc6bzmkmd014706rfda898to")
