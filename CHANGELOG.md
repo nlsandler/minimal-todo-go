@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.2 (2026-02-03)
+
+Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/nlsandler/minimal-todo-go/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
+
+### Features
+
+* **api:** remove basic auth ([93e69b1](https://github.com/nlsandler/minimal-todo-go/commit/93e69b1b7976cf67ae6d2e1abef0b53d9abab18d))
+* **codeflow:** enable breaking changes detection ([f282106](https://github.com/nlsandler/minimal-todo-go/commit/f28210615612448ca829641ae637d0cdfc96a2fa))
+
 ## 0.1.0-alpha.1 (2026-02-03)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/nlsandler/minimal-todo-go/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
