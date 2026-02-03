@@ -1,7 +1,7 @@
 package sentinel
 
 import (
-	"github.com/stainless-sdks/minimal-todo-go/internal/encoding/json/shims"
+	"github.com/nlsandler/minimal-todo-go/internal/encoding/json/shims"
 	"reflect"
 	"sync"
 )

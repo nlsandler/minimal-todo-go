@@ -3,8 +3,8 @@ package respjson_test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stainless-sdks/minimal-todo-go/internal/apijson"
-	rj "github.com/stainless-sdks/minimal-todo-go/packages/respjson"
+	"github.com/nlsandler/minimal-todo-go/internal/apijson"
+	rj "github.com/nlsandler/minimal-todo-go/packages/respjson"
 	"reflect"
 	"testing"
 )

@@ -2,7 +2,7 @@ package param_test
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/minimal-todo-go/packages/param"
+	"github.com/nlsandler/minimal-todo-go/packages/param"
 	"testing"
 )
 

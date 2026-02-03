@@ -3,7 +3,7 @@
 package constant
 
 import (
-	shimjson "github.com/stainless-sdks/minimal-todo-go/internal/encoding/json"
+	shimjson "github.com/nlsandler/minimal-todo-go/internal/encoding/json"
 )
 
 type Constant[T any] interface {

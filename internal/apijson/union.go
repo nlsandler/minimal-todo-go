@@ -2,7 +2,7 @@ package apijson
 
 import (
 	"errors"
-	"github.com/stainless-sdks/minimal-todo-go/packages/param"
+	"github.com/nlsandler/minimal-todo-go/packages/param"
 	"reflect"
 
 	"github.com/tidwall/gjson"

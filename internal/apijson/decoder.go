@@ -7,7 +7,7 @@ package apijson
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stainless-sdks/minimal-todo-go/packages/param"
+	"github.com/nlsandler/minimal-todo-go/packages/param"
 	"reflect"
 	"strconv"
 	"sync"

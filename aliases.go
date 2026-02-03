@@ -3,8 +3,8 @@
 package minimaltodo
 
 import (
-	"github.com/stainless-sdks/minimal-todo-go/internal/apierror"
-	"github.com/stainless-sdks/minimal-todo-go/packages/param"
+	"github.com/nlsandler/minimal-todo-go/internal/apierror"
+	"github.com/nlsandler/minimal-todo-go/packages/param"
 )
 
 // aliased to make [param.APIUnion] private when embedding
