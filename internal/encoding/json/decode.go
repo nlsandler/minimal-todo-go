@@ -14,7 +14,7 @@ import (
 	"encoding"
 	"encoding/base64"
 	"fmt"
-	"github.com/stainless-sdks/minimal-todo-go/internal/encoding/json/shims"
+	"github.com/nlsandler/minimal-todo-go/internal/encoding/json/shims"
 	"reflect"
 	"strconv"
 	"strings"

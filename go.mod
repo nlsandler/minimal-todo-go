@@ -1,4 +1,4 @@
-module github.com/stainless-sdks/minimal-todo-go
+module github.com/nlsandler/minimal-todo-go
 
 go 1.22
 
