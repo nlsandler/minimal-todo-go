@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"net/http/httputil"
 
-	"github.com/stainless-sdks/minimal-todo-go/internal/apijson"
-	"github.com/stainless-sdks/minimal-todo-go/packages/respjson"
+	"github.com/nlsandler/minimal-todo-go/internal/apijson"
+	"github.com/nlsandler/minimal-todo-go/packages/respjson"
 )
 
 // Error represents an error that originates from the API, i.e. when a request is

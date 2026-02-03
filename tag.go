@@ -10,12 +10,12 @@ import (
 	"net/url"
 	"slices"
 
-	"github.com/stainless-sdks/minimal-todo-go/internal/apijson"
-	"github.com/stainless-sdks/minimal-todo-go/internal/apiquery"
-	"github.com/stainless-sdks/minimal-todo-go/internal/requestconfig"
-	"github.com/stainless-sdks/minimal-todo-go/option"
-	"github.com/stainless-sdks/minimal-todo-go/packages/param"
-	"github.com/stainless-sdks/minimal-todo-go/packages/respjson"
+	"github.com/nlsandler/minimal-todo-go/internal/apijson"
+	"github.com/nlsandler/minimal-todo-go/internal/apiquery"
+	"github.com/nlsandler/minimal-todo-go/internal/requestconfig"
+	"github.com/nlsandler/minimal-todo-go/option"
+	"github.com/nlsandler/minimal-todo-go/packages/param"
+	"github.com/nlsandler/minimal-todo-go/packages/respjson"
 )
 
 // TagService contains methods and other services that help with interacting with

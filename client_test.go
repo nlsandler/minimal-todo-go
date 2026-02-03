@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stainless-sdks/minimal-todo-go"
-	"github.com/stainless-sdks/minimal-todo-go/internal"
-	"github.com/stainless-sdks/minimal-todo-go/option"
+	"github.com/nlsandler/minimal-todo-go"
+	"github.com/nlsandler/minimal-todo-go/internal"
+	"github.com/nlsandler/minimal-todo-go/option"
 )
 
 type closureTransport struct {

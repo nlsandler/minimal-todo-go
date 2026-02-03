@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"slices"
 
-	"github.com/stainless-sdks/minimal-todo-go/internal/requestconfig"
-	"github.com/stainless-sdks/minimal-todo-go/option"
+	"github.com/nlsandler/minimal-todo-go/internal/requestconfig"
+	"github.com/nlsandler/minimal-todo-go/option"
 )
 
 // TaskTagService contains methods and other services that help with interacting

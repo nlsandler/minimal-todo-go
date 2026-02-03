@@ -1,7 +1,7 @@
 package apijson
 
 import (
-	"github.com/stainless-sdks/minimal-todo-go/packages/respjson"
+	"github.com/nlsandler/minimal-todo-go/packages/respjson"
 	"reflect"
 )
 

@@ -2,7 +2,7 @@ package param
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/minimal-todo-go/internal/encoding/json/sentinel"
+	"github.com/nlsandler/minimal-todo-go/internal/encoding/json/sentinel"
 	"reflect"
 )
 

@@ -18,10 +18,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/stainless-sdks/minimal-todo-go/internal"
-	"github.com/stainless-sdks/minimal-todo-go/internal/apierror"
-	"github.com/stainless-sdks/minimal-todo-go/internal/apiform"
-	"github.com/stainless-sdks/minimal-todo-go/internal/apiquery"
+	"github.com/nlsandler/minimal-todo-go/internal"
+	"github.com/nlsandler/minimal-todo-go/internal/apierror"
+	"github.com/nlsandler/minimal-todo-go/internal/apiform"
+	"github.com/nlsandler/minimal-todo-go/internal/apiquery"
 )
 
 func getDefaultHeaders() map[string]string {

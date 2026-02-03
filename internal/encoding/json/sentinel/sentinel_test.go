@@ -1,8 +1,8 @@
 package sentinel_test
 
 import (
-	"github.com/stainless-sdks/minimal-todo-go/internal/encoding/json/sentinel"
-	"github.com/stainless-sdks/minimal-todo-go/packages/param"
+	"github.com/nlsandler/minimal-todo-go/internal/encoding/json/sentinel"
+	"github.com/nlsandler/minimal-todo-go/packages/param"
 	"reflect"
 	"slices"
 	"testing"

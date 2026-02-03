@@ -7,9 +7,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stainless-sdks/minimal-todo-go"
-	"github.com/stainless-sdks/minimal-todo-go/internal/testutil"
-	"github.com/stainless-sdks/minimal-todo-go/option"
+	"github.com/nlsandler/minimal-todo-go"
+	"github.com/nlsandler/minimal-todo-go/internal/testutil"
+	"github.com/nlsandler/minimal-todo-go/option"
 )
 
 func TestUsage(t *testing.T) {

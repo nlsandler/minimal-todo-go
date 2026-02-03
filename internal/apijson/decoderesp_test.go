@@ -2,8 +2,8 @@ package apijson_test
 
 import (
 	"encoding/json"
-	"github.com/stainless-sdks/minimal-todo-go/internal/apijson"
-	"github.com/stainless-sdks/minimal-todo-go/packages/respjson"
+	"github.com/nlsandler/minimal-todo-go/internal/apijson"
+	"github.com/nlsandler/minimal-todo-go/packages/respjson"
 	"testing"
 )
 
