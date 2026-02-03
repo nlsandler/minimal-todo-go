@@ -22,8 +22,6 @@ func TestUsage(t *testing.T) {
 	}
 	client := minimaltodo.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithUsername("My Username"),
-		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
 	t.Skip("Prism tests are disabled")
