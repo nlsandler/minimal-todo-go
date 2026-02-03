@@ -24,8 +24,6 @@ func TestTagNew(t *testing.T) {
 	}
 	client := minimaltodo.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithUsername("My Username"),
-		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Tags.New(context.TODO(), minimaltodo.TagNewParams{
@@ -52,8 +50,6 @@ func TestTagGet(t *testing.T) {
 	}
 	client := minimaltodo.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithUsername("My Username"),
-		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Tags.Get(context.TODO(), "tag_tz4a98xxat96iws9zmbrgj3a")
@@ -77,8 +73,6 @@ func TestTagListWithOptionalParams(t *testing.T) {
 	}
 	client := minimaltodo.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithUsername("My Username"),
-		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Tags.List(context.TODO(), minimaltodo.TagListParams{
@@ -105,8 +99,6 @@ func TestTagDelete(t *testing.T) {
 	}
 	client := minimaltodo.NewClient(
 		option.WithBaseURL(baseURL),
-		option.WithUsername("My Username"),
-		option.WithPassword("My Password"),
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Tags.Delete(context.TODO(), "tag_tz4a98xxat96iws9zmbrgj3a")

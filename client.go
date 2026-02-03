@@ -22,18 +22,11 @@ type Client struct {
 }
 
 // DefaultClientOptions read from the environment (MINIMAL_TODO_API_KEY,
-// MINIMAL_TODO_USERNAME, MINIMAL_TODO_PASSWORD, MINIMAL_TODO_BASE_URL). This
-// should be used to initialize new clients.
+// MINIMAL_TODO_BASE_URL). This should be used to initialize new clients.
 func DefaultClientOptions() []option.RequestOption {
 	defaults := []option.RequestOption{option.WithEnvironmentProduction()}
 	if o, ok := os.LookupEnv("MINIMAL_TODO_BASE_URL"); ok {
 		defaults = append(defaults, option.WithBaseURL(o))
-	}
-	if o, ok := os.LookupEnv("MINIMAL_TODO_USERNAME"); ok {
-		defaults = append(defaults, option.WithUsername(o))
-	}
-	if o, ok := os.LookupEnv("MINIMAL_TODO_PASSWORD"); ok {
-		defaults = append(defaults, option.WithPassword(o))
 	}
 	if o, ok := os.LookupEnv("MINIMAL_TODO_API_KEY"); ok {
 		defaults = append(defaults, option.WithAPIKey(o))
@@ -42,10 +35,9 @@ func DefaultClientOptions() []option.RequestOption {
 }
 
 // NewClient generates a new client with the default option read from the
-// environment (MINIMAL_TODO_API_KEY, MINIMAL_TODO_USERNAME, MINIMAL_TODO_PASSWORD,
-// MINIMAL_TODO_BASE_URL). The option passed in as arguments are applied after
-// these default arguments, and all option will be passed down to the services and
-// requests that this client makes.
+// environment (MINIMAL_TODO_API_KEY, MINIMAL_TODO_BASE_URL). The option passed in
+// as arguments are applied after these default arguments, and all option will be
+// passed down to the services and requests that this client makes.
 func NewClient(opts ...option.RequestOption) (r Client) {
 	opts = append(DefaultClientOptions(), opts...)
 
