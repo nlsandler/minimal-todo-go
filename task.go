@@ -184,7 +184,6 @@ func (r *TaskDeleteResponse) UnmarshalJSON(data []byte) error {
 
 type TaskNewParams struct {
 	Deadline param.Opt[time.Time] `json:"deadline,omitzero,required" format:"date"`
-	Name     param.Opt[string]    `json:"name,omitzero"`
 	paramObj
 }
 
