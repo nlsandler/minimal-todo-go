@@ -136,8 +136,8 @@ func (r *TagDeleteResponse) UnmarshalJSON(data []byte) error {
 }
 
 type TagNewParams struct {
-	Label   string `json:"label,required"`
-	OwnerID string `json:"owner_id,required"`
+	Label   param.Opt[string] `json:"label,omitzero,required"`
+	OwnerID string            `json:"owner_id,required"`
 	paramObj
 }
 
