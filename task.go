@@ -4,6 +4,7 @@ package minimaltodo
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -13,6 +14,7 @@ import (
 
 	"github.com/nlsandler/minimal-todo-go/internal/apijson"
 	"github.com/nlsandler/minimal-todo-go/internal/apiquery"
+	shimjson "github.com/nlsandler/minimal-todo-go/internal/encoding/json"
 	"github.com/nlsandler/minimal-todo-go/internal/requestconfig"
 	"github.com/nlsandler/minimal-todo-go/option"
 	"github.com/nlsandler/minimal-todo-go/packages/param"
@@ -40,10 +42,10 @@ func NewTaskService(opts ...option.RequestOption) (r TaskService) {
 	return
 }
 
-func (r *TaskService) New(ctx context.Context, opts ...option.RequestOption) (res *Task, err error) {
+func (r *TaskService) New(ctx context.Context, body TaskNewParams, opts ...option.RequestOption) (res *Task, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/tasks"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
@@ -118,6 +120,15 @@ func (r *Task) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
+// ToParam converts this Task to a TaskParam.
+//
+// Warning: the fields of the param type will not be present. ToParam should only
+// be used at the last possible moment before sending a request. Test for this with
+// TaskParam.Overrides()
+func (r Task) ToParam() TaskParam {
+	return param.Override[TaskParam](json.RawMessage(r.RawJSON()))
+}
+
 type TaskTag struct {
 	ID        string `json:"id,required"`
 	CreatedAt string `json:"created_at"`
@@ -139,6 +150,40 @@ type TaskTag struct {
 // Returns the unmodified JSON received from the API
 func (r TaskTag) RawJSON() string { return r.JSON.raw }
 func (r *TaskTag) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// The properties Deadline, Name, Tags are required.
+type TaskParam struct {
+	Deadline time.Time      `json:"deadline,required" format:"date"`
+	Name     string         `json:"name,required"`
+	Tags     []TaskTagParam `json:"tags,omitzero,required"`
+	paramObj
+}
+
+func (r TaskParam) MarshalJSON() (data []byte, err error) {
+	type shadow TaskParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *TaskParam) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// The property ID is required.
+type TaskTagParam struct {
+	ID        string            `json:"id,required"`
+	CreatedAt param.Opt[string] `json:"created_at,omitzero"`
+	Label     param.Opt[string] `json:"label,omitzero"`
+	OwnerID   param.Opt[string] `json:"owner_id,omitzero"`
+	UpdatedAt param.Opt[string] `json:"updated_at,omitzero"`
+	paramObj
+}
+
+func (r TaskTagParam) MarshalJSON() (data []byte, err error) {
+	type shadow TaskTagParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *TaskTagParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -180,6 +225,18 @@ type TaskDeleteResponse struct {
 func (r TaskDeleteResponse) RawJSON() string { return r.JSON.raw }
 func (r *TaskDeleteResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
+}
+
+type TaskNewParams struct {
+	Task TaskParam
+	paramObj
+}
+
+func (r TaskNewParams) MarshalJSON() (data []byte, err error) {
+	return shimjson.Marshal(r.Task)
+}
+func (r *TaskNewParams) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &r.Task)
 }
 
 type TaskUpdateParams struct {
