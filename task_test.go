@@ -7,14 +7,13 @@ import (
 	"errors"
 	"os"
 	"testing"
-	"time"
 
 	"github.com/nlsandler/minimal-todo-go"
 	"github.com/nlsandler/minimal-todo-go/internal/testutil"
 	"github.com/nlsandler/minimal-todo-go/option"
 )
 
-func TestTaskNewWithOptionalParams(t *testing.T) {
+func TestTaskNew(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -27,10 +26,7 @@ func TestTaskNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Tasks.New(context.TODO(), minimaltodo.TaskNewParams{
-		Deadline: minimaltodo.Time(time.Now()),
-		Name:     minimaltodo.String("Buy groceries"),
-	})
+	_, err := client.Tasks.New(context.TODO())
 	if err != nil {
 		var apierr *minimaltodo.Error
 		if errors.As(err, &apierr) {
