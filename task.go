@@ -99,9 +99,10 @@ func (r *TaskService) Complete(ctx context.Context, id string, opts ...option.Re
 }
 
 type Task struct {
-	Deadline time.Time `json:"deadline,required" format:"date"`
-	Name     string    `json:"name,required"`
-	Tags     []TaskTag `json:"tags,required"`
+	Deadline    time.Time        `json:"deadline,required" format:"date"`
+	Name        string           `json:"name,required"`
+	Tags        []TaskTag        `json:"tags,required"`
+	ExtraFields map[string]int64 `json:",extras"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Deadline    respjson.Field
