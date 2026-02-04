@@ -27,7 +27,7 @@ func TestTagNew(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Tags.New(context.TODO(), minimaltodo.TagNewParams{
-		Label:   "Work",
+		Label:   minimaltodo.String("Work"),
 		OwnerID: "owner_id",
 	})
 	if err != nil {
