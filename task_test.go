@@ -7,6 +7,7 @@ import (
 	"errors"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/nlsandler/minimal-todo-go"
 	"github.com/nlsandler/minimal-todo-go/internal/testutil"
@@ -26,7 +27,19 @@ func TestTaskNew(t *testing.T) {
 		option.WithBaseURL(baseURL),
 		option.WithAPIKey("My API Key"),
 	)
-	_, err := client.Tasks.New(context.TODO())
+	_, err := client.Tasks.New(context.TODO(), minimaltodo.TaskNewParams{
+		Task: minimaltodo.TaskParam{
+			Deadline: time.Now(),
+			Name:     "Buy groceries",
+			Tags: []minimaltodo.TaskTagParam{{
+				ID:        "tag_tz4a98xxat96iws9zmbrgj3a",
+				CreatedAt: minimaltodo.String("2021-01-01T00:00:00.000Z"),
+				Label:     minimaltodo.String("Work"),
+				OwnerID:   minimaltodo.String("owner_id"),
+				UpdatedAt: minimaltodo.String("2021-01-01T00:00:00.000Z"),
+			}},
+		},
+	})
 	if err != nil {
 		var apierr *minimaltodo.Error
 		if errors.As(err, &apierr) {
