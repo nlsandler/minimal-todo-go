@@ -17,6 +17,7 @@ import (
 	"github.com/nlsandler/minimal-todo-go/option"
 	"github.com/nlsandler/minimal-todo-go/packages/param"
 	"github.com/nlsandler/minimal-todo-go/packages/respjson"
+	"github.com/nlsandler/minimal-todo-go/shared"
 )
 
 // TaskService contains methods and other services that help with interacting with
@@ -203,7 +204,7 @@ type TaskUpdateParams struct {
 	Name        param.Opt[string] `json:"name,omitzero"`
 	Title       param.Opt[string] `json:"title,omitzero"`
 	TagIDs      []string          `json:"tag_ids,omitzero"`
-	Tags        []TagParam        `json:"tags,omitzero"`
+	Tags        []shared.TagParam `json:"tags,omitzero"`
 	paramObj
 }
 

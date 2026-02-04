@@ -1,3 +1,11 @@
+# Shared Params Types
+
+- <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go/shared#TagParam">TagParam</a>
+
+# Shared Response Types
+
+- <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go/shared#Tag">Tag</a>
+
 # Tasks
 
 Response Types:
@@ -25,19 +33,14 @@ Methods:
 
 # Tags
 
-Params Types:
-
-- <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagParam">TagParam</a>
-
 Response Types:
 
-- <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#Tag">Tag</a>
 - <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagListResponse">TagListResponse</a>
 - <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagDeleteResponse">TagDeleteResponse</a>
 
 Methods:
 
-- <code title="post /v1/tags">client.Tags.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagService.New">New</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagNewParams">TagNewParams</a>) (\*<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#Tag">Tag</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
-- <code title="get /v1/tags/{id}">client.Tags.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, id <a href="https://pkg.go.dev/builtin#string">string</a>) (\*<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#Tag">Tag</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="post /v1/tags">client.Tags.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagService.New">New</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, body <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagNewParams">TagNewParams</a>) (\*<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go/shared#Tag">Tag</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
+- <code title="get /v1/tags/{id}">client.Tags.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagService.Get">Get</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, id <a href="https://pkg.go.dev/builtin#string">string</a>) (\*<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go/shared">shared</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go/shared#Tag">Tag</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="get /v1/tags">client.Tags.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagService.List">List</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, query <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagListParams">TagListParams</a>) (\*<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagListResponse">TagListResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 - <code title="delete /v1/tags/{id}">client.Tags.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagService.Delete">Delete</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, id <a href="https://pkg.go.dev/builtin#string">string</a>) (\*<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagDeleteResponse">TagDeleteResponse</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
