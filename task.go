@@ -40,10 +40,10 @@ func NewTaskService(opts ...option.RequestOption) (r TaskService) {
 	return
 }
 
-func (r *TaskService) New(ctx context.Context, body TaskNewParams, opts ...option.RequestOption) (res *Task, err error) {
+func (r *TaskService) New(ctx context.Context, opts ...option.RequestOption) (res *Task, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/tasks"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
+	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
 	return
 }
 
@@ -179,20 +179,6 @@ type TaskDeleteResponse struct {
 // Returns the unmodified JSON received from the API
 func (r TaskDeleteResponse) RawJSON() string { return r.JSON.raw }
 func (r *TaskDeleteResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-type TaskNewParams struct {
-	Deadline param.Opt[time.Time] `json:"deadline,omitzero,required" format:"date"`
-	Name     param.Opt[string]    `json:"name,omitzero"`
-	paramObj
-}
-
-func (r TaskNewParams) MarshalJSON() (data []byte, err error) {
-	type shadow TaskNewParams
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *TaskNewParams) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
