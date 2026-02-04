@@ -75,11 +75,12 @@ func (r *TagService) Delete(ctx context.Context, id string, opts ...option.Reque
 }
 
 type Tag struct {
-	ID        string `json:"id,required"`
-	CreatedAt string `json:"created_at,required"`
-	Label     string `json:"label,required"`
-	OwnerID   string `json:"owner_id,required"`
-	UpdatedAt string `json:"updated_at,required"`
+	ID          string         `json:"id,required"`
+	CreatedAt   string         `json:"created_at,required"`
+	Label       string         `json:"label,required"`
+	OwnerID     string         `json:"owner_id,required"`
+	UpdatedAt   string         `json:"updated_at,required"`
+	ExtraFields map[string]any `json:",extras"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
@@ -109,16 +110,17 @@ func (r Tag) ToParam() TagParam {
 
 // The properties ID, CreatedAt, Label, OwnerID, UpdatedAt are required.
 type TagParam struct {
-	ID        string `json:"id,required"`
-	Label     string `json:"label,required"`
-	OwnerID   string `json:"owner_id,required"`
-	UpdatedAt string `json:"updated_at,required"`
+	ID          string         `json:"id,required"`
+	Label       string         `json:"label,required"`
+	OwnerID     string         `json:"owner_id,required"`
+	UpdatedAt   string         `json:"updated_at,required"`
+	ExtraFields map[string]any `json:"-"`
 	paramObj
 }
 
 func (r TagParam) MarshalJSON() (data []byte, err error) {
 	type shadow TagParam
-	return param.MarshalObject(r, (*shadow)(&r))
+	return param.MarshalWithExtras(r, (*shadow)(&r), r.ExtraFields)
 }
 func (r *TagParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
