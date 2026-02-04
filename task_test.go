@@ -12,6 +12,7 @@ import (
 	"github.com/nlsandler/minimal-todo-go"
 	"github.com/nlsandler/minimal-todo-go/internal/testutil"
 	"github.com/nlsandler/minimal-todo-go/option"
+	"github.com/nlsandler/minimal-todo-go/shared"
 )
 
 func TestTaskNewWithOptionalParams(t *testing.T) {
@@ -84,7 +85,7 @@ func TestTaskUpdateWithOptionalParams(t *testing.T) {
 			Description: minimaltodo.String("Get butter, milk, and bread"),
 			Name:        minimaltodo.String("name"),
 			TagIDs:      []string{"string"},
-			Tags: []minimaltodo.TagParam{{
+			Tags: []shared.TagParam{{
 				ID:        "tag_tz4a98xxat96iws9zmbrgj3a",
 				Label:     "Work",
 				OwnerID:   "owner_id",
