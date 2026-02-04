@@ -4,6 +4,7 @@ package minimaltodo
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -94,6 +95,33 @@ type Tag struct {
 // Returns the unmodified JSON received from the API
 func (r Tag) RawJSON() string { return r.JSON.raw }
 func (r *Tag) UnmarshalJSON(data []byte) error {
+	return apijson.UnmarshalRoot(data, r)
+}
+
+// ToParam converts this Tag to a TagParam.
+//
+// Warning: the fields of the param type will not be present. ToParam should only
+// be used at the last possible moment before sending a request. Test for this with
+// TagParam.Overrides()
+func (r Tag) ToParam() TagParam {
+	return param.Override[TagParam](json.RawMessage(r.RawJSON()))
+}
+
+// The properties ID, CreatedAt, Label, OwnerID, UpdatedAt are required.
+type TagParam struct {
+	ID        string `json:"id,required"`
+	CreatedAt string `json:"created_at,required"`
+	Label     string `json:"label,required"`
+	OwnerID   string `json:"owner_id,required"`
+	UpdatedAt string `json:"updated_at,required"`
+	paramObj
+}
+
+func (r TagParam) MarshalJSON() (data []byte, err error) {
+	type shadow TagParam
+	return param.MarshalObject(r, (*shadow)(&r))
+}
+func (r *TagParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 

@@ -4,7 +4,6 @@ package minimaltodo
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -14,7 +13,6 @@ import (
 
 	"github.com/nlsandler/minimal-todo-go/internal/apijson"
 	"github.com/nlsandler/minimal-todo-go/internal/apiquery"
-	shimjson "github.com/nlsandler/minimal-todo-go/internal/encoding/json"
 	"github.com/nlsandler/minimal-todo-go/internal/requestconfig"
 	"github.com/nlsandler/minimal-todo-go/option"
 	"github.com/nlsandler/minimal-todo-go/packages/param"
@@ -120,15 +118,6 @@ func (r *Task) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-// ToParam converts this Task to a TaskParam.
-//
-// Warning: the fields of the param type will not be present. ToParam should only
-// be used at the last possible moment before sending a request. Test for this with
-// TaskParam.Overrides()
-func (r Task) ToParam() TaskParam {
-	return param.Override[TaskParam](json.RawMessage(r.RawJSON()))
-}
-
 type TaskTag struct {
 	ID        string `json:"id,required"`
 	CreatedAt string `json:"created_at"`
@@ -150,40 +139,6 @@ type TaskTag struct {
 // Returns the unmodified JSON received from the API
 func (r TaskTag) RawJSON() string { return r.JSON.raw }
 func (r *TaskTag) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// The properties Deadline, Name, Tags are required.
-type TaskParam struct {
-	Deadline time.Time      `json:"deadline,required" format:"date"`
-	Name     string         `json:"name,required"`
-	Tags     []TaskTagParam `json:"tags,omitzero,required"`
-	paramObj
-}
-
-func (r TaskParam) MarshalJSON() (data []byte, err error) {
-	type shadow TaskParam
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *TaskParam) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// The property ID is required.
-type TaskTagParam struct {
-	ID        string            `json:"id,required"`
-	CreatedAt param.Opt[string] `json:"created_at,omitzero"`
-	Label     param.Opt[string] `json:"label,omitzero"`
-	OwnerID   param.Opt[string] `json:"owner_id,omitzero"`
-	UpdatedAt param.Opt[string] `json:"updated_at,omitzero"`
-	paramObj
-}
-
-func (r TaskTagParam) MarshalJSON() (data []byte, err error) {
-	type shadow TaskTagParam
-	return param.MarshalObject(r, (*shadow)(&r))
-}
-func (r *TaskTagParam) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -228,22 +183,26 @@ func (r *TaskDeleteResponse) UnmarshalJSON(data []byte) error {
 }
 
 type TaskNewParams struct {
-	Task TaskParam
+	Deadline param.Opt[time.Time] `json:"deadline,omitzero,required" format:"date"`
+	Name     param.Opt[string]    `json:"name,omitzero"`
 	paramObj
 }
 
 func (r TaskNewParams) MarshalJSON() (data []byte, err error) {
-	return shimjson.Marshal(r.Task)
+	type shadow TaskNewParams
+	return param.MarshalObject(r, (*shadow)(&r))
 }
 func (r *TaskNewParams) UnmarshalJSON(data []byte) error {
-	return json.Unmarshal(data, &r.Task)
+	return apijson.UnmarshalRoot(data, r)
 }
 
 type TaskUpdateParams struct {
 	CompletedAt param.Opt[string] `json:"completed_at,omitzero"`
 	Description param.Opt[string] `json:"description,omitzero"`
+	Name        param.Opt[string] `json:"name,omitzero"`
 	Title       param.Opt[string] `json:"title,omitzero"`
 	TagIDs      []string          `json:"tag_ids,omitzero"`
+	Tags        []TagParam        `json:"tags,omitzero"`
 	paramObj
 }
 

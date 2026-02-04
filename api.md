@@ -1,9 +1,5 @@
 # Tasks
 
-Params Types:
-
-- <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TaskParam">TaskParam</a>
-
 Response Types:
 
 - <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#Task">Task</a>
@@ -28,6 +24,10 @@ Methods:
 - <code title="delete /v1/tasks/{todoId}/tags/{tagId}">client.Tasks.Tags.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TaskTagService.Remove">Remove</a>(ctx <a href="https://pkg.go.dev/context">context</a>.<a href="https://pkg.go.dev/context#Context">Context</a>, tagID <a href="https://pkg.go.dev/builtin#string">string</a>, body <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TaskTagRemoveParams">TaskTagRemoveParams</a>) (\*<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#Task">Task</a>, <a href="https://pkg.go.dev/builtin#error">error</a>)</code>
 
 # Tags
+
+Params Types:
+
+- <a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go">minimaltodo</a>.<a href="https://pkg.go.dev/github.com/nlsandler/minimal-todo-go#TagParam">TagParam</a>
 
 Response Types:
 
