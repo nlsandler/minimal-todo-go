@@ -14,7 +14,7 @@ import (
 	"github.com/nlsandler/minimal-todo-go/option"
 )
 
-func TestTaskNewWithOptionalParams(t *testing.T) {
+func TestTaskNew(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -29,7 +29,6 @@ func TestTaskNewWithOptionalParams(t *testing.T) {
 	)
 	_, err := client.Tasks.New(context.TODO(), minimaltodo.TaskNewParams{
 		Deadline: minimaltodo.Time(time.Now()),
-		Name:     minimaltodo.String("Buy groceries"),
 	})
 	if err != nil {
 		var apierr *minimaltodo.Error
