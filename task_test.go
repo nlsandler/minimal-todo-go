@@ -14,7 +14,7 @@ import (
 	"github.com/nlsandler/minimal-todo-go/option"
 )
 
-func TestTaskNew(t *testing.T) {
+func TestTaskNewWithOptionalParams(t *testing.T) {
 	t.Skip("Prism tests are disabled")
 	baseURL := "http://localhost:4010"
 	if envURL, ok := os.LookupEnv("TEST_API_BASE_URL"); ok {
@@ -28,17 +28,8 @@ func TestTaskNew(t *testing.T) {
 		option.WithAPIKey("My API Key"),
 	)
 	_, err := client.Tasks.New(context.TODO(), minimaltodo.TaskNewParams{
-		Task: minimaltodo.TaskParam{
-			Deadline: time.Now(),
-			Name:     "Buy groceries",
-			Tags: []minimaltodo.TaskTagParam{{
-				ID:        "tag_tz4a98xxat96iws9zmbrgj3a",
-				CreatedAt: minimaltodo.String("2021-01-01T00:00:00.000Z"),
-				Label:     minimaltodo.String("Work"),
-				OwnerID:   minimaltodo.String("owner_id"),
-				UpdatedAt: minimaltodo.String("2021-01-01T00:00:00.000Z"),
-			}},
-		},
+		Deadline: minimaltodo.Time(time.Now()),
+		Name:     minimaltodo.String("Buy groceries"),
 	})
 	if err != nil {
 		var apierr *minimaltodo.Error
@@ -91,8 +82,16 @@ func TestTaskUpdateWithOptionalParams(t *testing.T) {
 		minimaltodo.TaskUpdateParams{
 			CompletedAt: minimaltodo.String("2021-01-01T00:00:00.000Z"),
 			Description: minimaltodo.String("Get butter, milk, and bread"),
+			Name:        minimaltodo.String("name"),
 			TagIDs:      []string{"string"},
-			Title:       minimaltodo.String("Buy groceries"),
+			Tags: []minimaltodo.TagParam{{
+				ID:        "tag_tz4a98xxat96iws9zmbrgj3a",
+				CreatedAt: "2021-01-01T00:00:00.000Z",
+				Label:     "Work",
+				OwnerID:   "owner_id",
+				UpdatedAt: "2021-01-01T00:00:00.000Z",
+			}},
+			Title: minimaltodo.String("Buy groceries"),
 		},
 	)
 	if err != nil {
