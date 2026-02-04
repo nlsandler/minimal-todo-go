@@ -165,10 +165,12 @@ func (r *TaskListResponse) UnmarshalJSON(data []byte) error {
 type TaskDeleteResponse struct {
 	ID      string `json:"id,required"`
 	Deleted bool   `json:"deleted,required"`
+	Note    string `json:"note,nullable"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
 		Deleted     respjson.Field
+		Note        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
