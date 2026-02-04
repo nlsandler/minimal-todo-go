@@ -86,7 +86,6 @@ func TestTaskUpdateWithOptionalParams(t *testing.T) {
 			TagIDs:      []string{"string"},
 			Tags: []minimaltodo.TagParam{{
 				ID:        "tag_tz4a98xxat96iws9zmbrgj3a",
-				CreatedAt: "2021-01-01T00:00:00.000Z",
 				Label:     "Work",
 				OwnerID:   "owner_id",
 				UpdatedAt: "2021-01-01T00:00:00.000Z",
