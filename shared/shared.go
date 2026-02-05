@@ -53,6 +53,7 @@ func (r Tag) ToParam() TagParam {
 // The properties ID, CreatedAt, Label, OwnerID, UpdatedAt are required.
 type TagParam struct {
 	ID          string         `json:"id,required"`
+	CreatedAt   string         `json:"created_at,required"`
 	Label       string         `json:"label,required"`
 	OwnerID     string         `json:"owner_id,required"`
 	UpdatedAt   string         `json:"updated_at,required"`
