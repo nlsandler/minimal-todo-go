@@ -16,6 +16,7 @@ import (
 	"github.com/nlsandler/minimal-todo-go/option"
 	"github.com/nlsandler/minimal-todo-go/packages/param"
 	"github.com/nlsandler/minimal-todo-go/packages/respjson"
+	"github.com/nlsandler/minimal-todo-go/shared"
 )
 
 // TagService contains methods and other services that help with interacting with
@@ -37,14 +38,14 @@ func NewTagService(opts ...option.RequestOption) (r TagService) {
 	return
 }
 
-func (r *TagService) New(ctx context.Context, body TagNewParams, opts ...option.RequestOption) (res *Tag, err error) {
+func (r *TagService) New(ctx context.Context, body TagNewParams, opts ...option.RequestOption) (res *shared.Tag, err error) {
 	opts = slices.Concat(r.Options, opts)
 	path := "v1/tags"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
 	return
 }
 
-func (r *TagService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *Tag, err error) {
+func (r *TagService) Get(ctx context.Context, id string, opts ...option.RequestOption) (res *shared.Tag, err error) {
 	opts = slices.Concat(r.Options, opts)
 	if id == "" {
 		err = errors.New("missing required id parameter")
@@ -73,34 +74,10 @@ func (r *TagService) Delete(ctx context.Context, id string, opts ...option.Reque
 	return
 }
 
-type Tag struct {
-	ID        string `json:"id,required"`
-	CreatedAt string `json:"created_at,required"`
-	Label     string `json:"label,required"`
-	OwnerID   string `json:"owner_id,required"`
-	UpdatedAt string `json:"updated_at,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		ID          respjson.Field
-		CreatedAt   respjson.Field
-		Label       respjson.Field
-		OwnerID     respjson.Field
-		UpdatedAt   respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r Tag) RawJSON() string { return r.JSON.raw }
-func (r *Tag) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
 type TagListResponse struct {
-	Data       []Tag  `json:"data,required"`
-	HasMore    bool   `json:"has_more,required"`
-	NextCursor string `json:"next_cursor,required"`
+	Data       []shared.Tag `json:"data,required"`
+	HasMore    bool         `json:"has_more,required"`
+	NextCursor string       `json:"next_cursor,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Data        respjson.Field
@@ -136,8 +113,8 @@ func (r *TagDeleteResponse) UnmarshalJSON(data []byte) error {
 }
 
 type TagNewParams struct {
-	Label   string `json:"label,required"`
-	OwnerID string `json:"owner_id,required"`
+	Label   param.Opt[string] `json:"label,omitzero,required"`
+	OwnerID string            `json:"owner_id,required"`
 	paramObj
 }
 

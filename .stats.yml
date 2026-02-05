@@ -1,4 +1,4 @@
 configured_endpoints: 13
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/sandler-nlsandler%2Fminimal-todo-c040183c74fd89b4c63d48eadc8cfbd227ce414e6856cc691f65d251204beb22.yml
-openapi_spec_hash: 7025a1c96744cefe09e105ea34101f84
-config_hash: b329babcdd518bf8a605f2a2694e1ff6
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/sandler-nlsandler%2Fminimal-todo-11ba332d3b73a591f6853cf0a496cabd5806be6f2cfb375acb5727c73f8aa100.yml
+openapi_spec_hash: 71e78054fbc68f22ce36613d018a6227
+config_hash: b275a4cb57cf521bf1cc7f784cfa214b

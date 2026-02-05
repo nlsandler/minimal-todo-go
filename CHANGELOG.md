@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2026-02-05)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/nlsandler/minimal-todo-go/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **api:** add nullable delete response ([63715c7](https://github.com/nlsandler/minimal-todo-go/commit/63715c7b2b23c069fd60c5e1d979334a2945e9ec))
+* **api:** additional properties in nested  request body... ([90002a7](https://github.com/nlsandler/minimal-todo-go/commit/90002a7e0096f1864396dda743e14726e9c42225))
+* **api:** additionalProperties response ([7738773](https://github.com/nlsandler/minimal-todo-go/commit/7738773f5d033340893be56d1ed68441c431942e))
+* **api:** get rid of irrational readOnly ([c90ca13](https://github.com/nlsandler/minimal-todo-go/commit/c90ca13dd3090a2cca5511cc9cd81ef568e77160))
+* **api:** make a model shared ([a0a467d](https://github.com/nlsandler/minimal-todo-go/commit/a0a467da5718f3d5138b3d7b2d24f2925f84a449))
+* **api:** make note non-nullable ([183fc90](https://github.com/nlsandler/minimal-todo-go/commit/183fc9014eb40af6a58fe4c2a02028d369a63525))
+* **api:** make note required ([dbde10c](https://github.com/nlsandler/minimal-todo-go/commit/dbde10ceaa4ca502da632b86250f685a446f5083))
+* **api:** make tag label nullable ([45381c7](https://github.com/nlsandler/minimal-todo-go/commit/45381c7e3a482a779139f88087390e559030df3a))
+* **api:** make task name optional ([71c16ec](https://github.com/nlsandler/minimal-todo-go/commit/71c16ecc5906ee88571dc8df7bf0140bf131d598))
+* **api:** re-use NESTED schema instead of top-level one in reqs/responses ([dbca9cd](https://github.com/nlsandler/minimal-todo-go/commit/dbca9cdb2cd7e4a8f66470ecfe0b173bbf097e31))
+* **api:** readonly - fix typo ([69d43c8](https://github.com/nlsandler/minimal-todo-go/commit/69d43c85414751d3b0efc9e29b41aeebdabcee39))
+* **api:** reuse schema in request take 2 ([482cdf0](https://github.com/nlsandler/minimal-todo-go/commit/482cdf08c2f2aa1cd1c709d9094abc3ee7e17842))
+* **api:** string maxLength ([e647b54](https://github.com/nlsandler/minimal-todo-go/commit/e647b54ecfcde6fe2b487cc3799a7e2d4664c67c))
+* **api:** use schema in request body take 3... ([849f919](https://github.com/nlsandler/minimal-todo-go/commit/849f91918e49b5d2210094c893abc31b557d0232))
+* **api:** whoops ([3948ceb](https://github.com/nlsandler/minimal-todo-go/commit/3948cebe75b7fc1b9f09588a7f264e20bd9889a2))
+
 ## 0.1.0-alpha.2 (2026-02-03)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/nlsandler/minimal-todo-go/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)

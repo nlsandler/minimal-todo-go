@@ -17,6 +17,7 @@ import (
 	"github.com/nlsandler/minimal-todo-go/option"
 	"github.com/nlsandler/minimal-todo-go/packages/param"
 	"github.com/nlsandler/minimal-todo-go/packages/respjson"
+	"github.com/nlsandler/minimal-todo-go/shared"
 )
 
 // TaskService contains methods and other services that help with interacting with
@@ -99,9 +100,10 @@ func (r *TaskService) Complete(ctx context.Context, id string, opts ...option.Re
 }
 
 type Task struct {
-	Deadline time.Time `json:"deadline,required" format:"date"`
-	Name     string    `json:"name,required"`
-	Tags     []TaskTag `json:"tags,required"`
+	Deadline    time.Time        `json:"deadline,required" format:"date"`
+	Name        string           `json:"name,required"`
+	Tags        []TaskTag        `json:"tags,required"`
+	ExtraFields map[string]int64 `json:",extras"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		Deadline    respjson.Field
@@ -165,10 +167,12 @@ func (r *TaskListResponse) UnmarshalJSON(data []byte) error {
 type TaskDeleteResponse struct {
 	ID      string `json:"id,required"`
 	Deleted bool   `json:"deleted,required"`
+	Note    string `json:"note,required"`
 	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
 	JSON struct {
 		ID          respjson.Field
 		Deleted     respjson.Field
+		Note        respjson.Field
 		ExtraFields map[string]respjson.Field
 		raw         string
 	} `json:"-"`
@@ -182,7 +186,7 @@ func (r *TaskDeleteResponse) UnmarshalJSON(data []byte) error {
 
 type TaskNewParams struct {
 	Deadline param.Opt[time.Time] `json:"deadline,omitzero,required" format:"date"`
-	Name     string               `json:"name,required"`
+	Name     param.Opt[string]    `json:"name,omitzero"`
 	paramObj
 }
 
@@ -197,8 +201,10 @@ func (r *TaskNewParams) UnmarshalJSON(data []byte) error {
 type TaskUpdateParams struct {
 	CompletedAt param.Opt[string] `json:"completed_at,omitzero"`
 	Description param.Opt[string] `json:"description,omitzero"`
+	Name        param.Opt[string] `json:"name,omitzero"`
 	Title       param.Opt[string] `json:"title,omitzero"`
 	TagIDs      []string          `json:"tag_ids,omitzero"`
+	Tags        []shared.TagParam `json:"tags,omitzero"`
 	paramObj
 }
 
