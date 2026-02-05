@@ -14,6 +14,7 @@ import (
 	"github.com/nlsandler/minimal-todo-go/internal/apiquery"
 	"github.com/nlsandler/minimal-todo-go/internal/requestconfig"
 	"github.com/nlsandler/minimal-todo-go/option"
+	"github.com/nlsandler/minimal-todo-go/packages/pagination"
 	"github.com/nlsandler/minimal-todo-go/packages/param"
 	"github.com/nlsandler/minimal-todo-go/packages/respjson"
 	"github.com/nlsandler/minimal-todo-go/shared"
@@ -56,11 +57,25 @@ func (r *TagService) Get(ctx context.Context, id string, opts ...option.RequestO
 	return
 }
 
-func (r *TagService) List(ctx context.Context, query TagListParams, opts ...option.RequestOption) (res *TagListResponse, err error) {
+func (r *TagService) List(ctx context.Context, query TagListParams, opts ...option.RequestOption) (res *pagination.Page[shared.Tag], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/tags"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+func (r *TagService) ListAutoPaging(ctx context.Context, query TagListParams, opts ...option.RequestOption) *pagination.PageAutoPager[shared.Tag] {
+	return pagination.NewPageAutoPager(r.List(ctx, query, opts...))
 }
 
 func (r *TagService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *TagDeleteResponse, err error) {
@@ -72,26 +87,6 @@ func (r *TagService) Delete(ctx context.Context, id string, opts ...option.Reque
 	path := fmt.Sprintf("v1/tags/%s", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodDelete, path, nil, &res, opts...)
 	return
-}
-
-type TagListResponse struct {
-	Data       []shared.Tag `json:"data,required"`
-	HasMore    bool         `json:"has_more,required"`
-	NextCursor string       `json:"next_cursor,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Data        respjson.Field
-		HasMore     respjson.Field
-		NextCursor  respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r TagListResponse) RawJSON() string { return r.JSON.raw }
-func (r *TagListResponse) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
 }
 
 type TagDeleteResponse struct {
