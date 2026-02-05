@@ -15,6 +15,7 @@ import (
 	"github.com/nlsandler/minimal-todo-go/internal/apiquery"
 	"github.com/nlsandler/minimal-todo-go/internal/requestconfig"
 	"github.com/nlsandler/minimal-todo-go/option"
+	"github.com/nlsandler/minimal-todo-go/packages/pagination"
 	"github.com/nlsandler/minimal-todo-go/packages/param"
 	"github.com/nlsandler/minimal-todo-go/packages/respjson"
 	"github.com/nlsandler/minimal-todo-go/shared"
@@ -70,11 +71,25 @@ func (r *TaskService) Update(ctx context.Context, id string, body TaskUpdatePara
 	return
 }
 
-func (r *TaskService) List(ctx context.Context, query TaskListParams, opts ...option.RequestOption) (res *TaskListResponse, err error) {
+func (r *TaskService) List(ctx context.Context, query TaskListParams, opts ...option.RequestOption) (res *pagination.Page[Task], err error) {
+	var raw *http.Response
 	opts = slices.Concat(r.Options, opts)
+	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
 	path := "v1/tasks"
-	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
-	return
+	cfg, err := requestconfig.NewRequestConfig(ctx, http.MethodGet, path, query, &res, opts...)
+	if err != nil {
+		return nil, err
+	}
+	err = cfg.Execute()
+	if err != nil {
+		return nil, err
+	}
+	res.SetPageConfig(cfg, raw)
+	return res, nil
+}
+
+func (r *TaskService) ListAutoPaging(ctx context.Context, query TaskListParams, opts ...option.RequestOption) *pagination.PageAutoPager[Task] {
+	return pagination.NewPageAutoPager(r.List(ctx, query, opts...))
 }
 
 func (r *TaskService) Delete(ctx context.Context, id string, opts ...option.RequestOption) (res *TaskDeleteResponse, err error) {
@@ -141,26 +156,6 @@ type TaskTag struct {
 // Returns the unmodified JSON received from the API
 func (r TaskTag) RawJSON() string { return r.JSON.raw }
 func (r *TaskTag) UnmarshalJSON(data []byte) error {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-type TaskListResponse struct {
-	Data       []Task `json:"data,required"`
-	HasMore    bool   `json:"has_more,required"`
-	NextCursor string `json:"next_cursor,required"`
-	// JSON contains metadata for fields, check presence with [respjson.Field.Valid].
-	JSON struct {
-		Data        respjson.Field
-		HasMore     respjson.Field
-		NextCursor  respjson.Field
-		ExtraFields map[string]respjson.Field
-		raw         string
-	} `json:"-"`
-}
-
-// Returns the unmodified JSON received from the API
-func (r TaskListResponse) RawJSON() string { return r.JSON.raw }
-func (r *TaskListResponse) UnmarshalJSON(data []byte) error {
 	return apijson.UnmarshalRoot(data, r)
 }
 
